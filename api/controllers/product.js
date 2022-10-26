@@ -1,27 +1,35 @@
 import { ProductModel } from '../models/product.js';
 
-export { getProducts, getProduct, wrongGetProduct, postProduct, wrongPostProduct };
+export { getProducts, getProductById, wrongGetProduct, postProduct, wrongPostProduct };
 
 const getProducts = (req, res) => {
-    const { search } = req.query;
+    const { search, priceBot, priceTop, currency } = req.query;
     try {
+        let query = {};
+
         if (search) {
-            ProductModel.find({ $or: [{ SKU: { $regex: search, $options: 'i' } }, { name: { $regex: search, $options: 'i' } }] }, (err, data) => {
-                try {
-                    return res.status(200).json(data);
-                } catch (err) { throw err }
-            });
-        } else {
-            ProductModel.find({}, (err, data) => {
-                try {
-                    return res.status(200).json(data);
-                } catch (err) { throw err }
-            });
+            query = {
+                $or: [
+                    { SKU: { $regex: search, $options: 'i' } },
+                    { name: { $regex: search, $options: 'i' } },
+                    { description: { $regex: search, $options: 'i' } }
+                ]
+            }
         }
+        if (priceBot || priceTop) query.price = {};
+        if (priceBot) query.price.$gte = priceBot;
+        if (priceTop) query.price.$lte = priceTop;
+        if (currency) query.currency = currency;
+
+        ProductModel.find(query, (err, data) => {
+            if (err) return res.status(400).json({ message: 'Error getting products' });
+            return res.status(200).json(data);
+        });
+
     } catch (err) { throw err }
 }
 
-const getProduct = (req, res) => {
+const getProductById = (req, res) => {
     try {
         const { id } = req.params;
         ProductModel.findById(id, (err, data) => {
