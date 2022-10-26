@@ -54,12 +54,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The objective of this coding challenge will be to evaluate the applicant's knowledge / programming skills in the NodeJs language.
-The delivered solution must be composed of a project ready to run locally:
-Backend project, developed with Nodejs/express technologies (required) that will expose a Rest API of services and will be in charge of accessing the Database (BD provided by Churrasco).
-The DB can be explored using MongoDb Compass with the access data given in the appendix.
-
-The API design will be free. They can use Node/Express compatible technologies/frameworks: eg. Typescript, NestJs, etc.
+Project ready to run locally:<br/>
+Backend project, developed with Nodejs/Express technologies that exposes a Rest API of services and is responsible for accessing the Database (DB provided by Churrasco).<br/>
 
 #### Functionality 1: Login. (30% of the challenge) (Done)
 
