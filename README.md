@@ -1,5 +1,3 @@
-# wally-challenge
-
 <a name="readme-top"></a>
 
 [![Contributors][contributors-shield]][contributors-url]
@@ -14,10 +12,10 @@
 <br />
 <div align="center">
 
-  <h3 align="center">Challenge Churrasco / Wally - CRUD de Productos</h3>
+  <h1 align="center">Challenge Churrasco / Wally - CRUD</h1>
 
   <p align="center">
-    Churrasco CRUD Challenge for Wally
+    Node and Express API REST with products CRUD and users authentication using JWT.
     <br />
     <a href="https://github.com/AguilarBrian/wally-challenge"><strong>Explore the docs »</strong></a>
     <br />
@@ -63,24 +61,21 @@ The DB can be explored using MongoDb Compass with the access data given in the a
 
 The API design will be free. They can use Node/Express compatible technologies/frameworks: eg. Typescript, NestJs, etc.
 
-#### Functionality 1: Login 30% of the challenge
+#### Functionality 1: Login. (30% of the challenge)
 
-It should develop:
-- User authentication backend, using the users collection entries as valid users.
-- You should only be able to log in users with role=”admin” and property 'active'=true
-- The password is stored in the database as a SHA256 hash
-- The user can enter either with a username or with an email.
-- If the user is valid, the login endpoint must return a JWT token that will be sent in each subsequent request in the 'Authorization' header.
-- The rest of the endpoints will have to validate that this token is valid.
+- [x] User authentication backend, using the users collection entries as valid users.
+- [x] You should only be able to log in users with role=”admin” and property active=true
+- [x] The password is stored in the database as a SHA256 hash
+- [x] The user can enter either with a username or with an email.
+- [x] If the user is valid, the login endpoint must return a JWT token that will be sent in each subsequent request in the 'Authorization' header.
+- [x] The rest of the endpoints will have to validate that this token is valid.
 
-#### Functionality 2: List of Products. 40% of the challenge
-- It must be developed.
-- Backend for obtaining products, using the entries of the products collection.
-- Extra credit for implementing search filters.
+#### Functionality 2: List of Products. (40% of the challenge)
+- [x] Backend for obtaining products, using the entries of the products collection.
+- [x] Extra credit for implementing search filters.
 
-#### Functionality 3: Product registration. 30% of the challenge
-It should develop:
-- Backend for the insertion of a new product, validating that the required fields (SKU, name, images, price, currency) are present but that the optional fields (code, description) are allowed.
+#### Functionality 3: Product registration. (30% of the challenge)
+- [x] Backend for the insertion of a new product, validating that the required fields (SKU, name, images, price, currency) are present but that the optional fields (code, description) are allowed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
