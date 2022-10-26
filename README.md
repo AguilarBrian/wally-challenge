@@ -61,7 +61,7 @@ The DB can be explored using MongoDb Compass with the access data given in the a
 
 The API design will be free. They can use Node/Express compatible technologies/frameworks: eg. Typescript, NestJs, etc.
 
-#### Functionality 1: Login. (30% of the challenge)
+#### Functionality 1: Login. (30% of the challenge) (Done)
 
 - [x] User authentication backend, using the users collection entries as valid users.
 - [x] You should only be able to log in users with role=”admin” and property active=true
@@ -70,11 +70,11 @@ The API design will be free. They can use Node/Express compatible technologies/f
 - [x] If the user is valid, the login endpoint must return a JWT token that will be sent in each subsequent request in the 'Authorization' header.
 - [x] The rest of the endpoints will have to validate that this token is valid.
 
-#### Functionality 2: List of Products. (40% of the challenge)
+#### Functionality 2: List of Products. (40% of the challenge) (Done)
 - [x] Backend for obtaining products, using the entries of the products collection.
 - [x] Extra credit for implementing search filters.
 
-#### Functionality 3: Product registration. (30% of the challenge)
+#### Functionality 3: Product registration. (30% of the challenge) (Done)
 - [x] Backend for the insertion of a new product, validating that the required fields (SKU, name, images, price, currency) are present but that the optional fields (code, description) are allowed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -96,9 +96,12 @@ The API design will be free. They can use Node/Express compatible technologies/f
 <!-- GETTING STARTED -->
 ## Getting Started
 
-First of all, you need to have installed Node.js and Node Package Manager (npm) in your computer.
+First of all, you need to have installed Git, Node.js and Node Package Manager (NPM) in your computer.
 
 ### Prerequisites
+
+* git<br/>
+  https://git-scm.com/downloads
 
 * node.js<br/>
   https://nodejs.org/es/
@@ -110,18 +113,15 @@ First of all, you need to have installed Node.js and Node Package Manager (npm) 
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/AguilarBrian/wally-challenge.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Set the environment variables in a `.env` file
+3. Set the environment variables in a `.env` file
    ```sh
     STATUS=development
     PORT=4000
@@ -147,7 +147,7 @@ To run the project, you need to run the following command in the root folder of 
 npm run dev
 ```
 
-You can use any client to test the API, such as Postman or Insomnia (or a browser only for GET requests).
+You can use any client to test the API, such as [Postman](https://www.postman.com/downloads/), [Insomnia](https://insomnia.rest/download) or VSCode's [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension (or a [browser](https://www.google.com/chrome/) for GET requests).
 
 First you need to login to get a token.<br/>
 You can do it by making a POST request to the following endpoint:<br/>
