@@ -45,7 +45,6 @@
     <li>
       <a href="#usage">Usage</a>
       <ul>
-        <li><a href="#routes">Routes</a></li>
         <li><a href="#product-routes">Product Routes</a></li>
         <li><a href="#user-routes">User Routes</a></li>
       </ul>
@@ -139,7 +138,7 @@ First of all, you need to have installed Git, Node.js and Node Package Manager (
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-1. <strong>Run the project:</strong> You need to run the following command in the root folder of the project:
+1. <strong>Run the project:</strong> You need to run the following command in the root folder of the project.
   ```sh
   npm run dev
   ```
@@ -150,9 +149,11 @@ _You can use any client to test the API, such as [Postman](https://www.postman.c
 <br/>
 
 2. <strong>Login to get a token:</strong>
-  You can do it by making a <strong>POST request</strong> to the following endpoint:<br/>
-  `/api/v1/auth`<br/>
-  <br/>
+  Make a POST request to the following endpoint with valid credentials.
+  ```sh
+  /api/v1/auth
+  ```
+
   With the following body format:
   ```json
   {
@@ -162,46 +163,45 @@ _You can use any client to test the API, such as [Postman](https://www.postman.c
   }
   ```
 
-3. <strong>Add the given token</strong> in the Headers or the query of the request to make requests to the other endpoints.
+3. <strong>Add the given token</strong> in the Headers or the Query of the requests to the other endpoints.
   ```sh
   Headers --> Authorization: Bearer token
   Query --> accessToken=token
   ```
-
-
-### Routes
-
-You can make <strong>GET requests</strong> to the following endpoints:<br/>
-```
-/api/v1/users        -  Get all users
-/api/v1/user/:id     -  Get a user by their ID
-/api/v1/products     -  Get all products
-/api/v1/product/:id  -  Get a product by its ID
-```
 <br/>
 
-You can make <strong>POST requests</strong> to the following endpoint:<br/>
-```
-/api/v1/product  -  Create a new product
-```
+_To concatenate query parameters, use the format: `?firstProperty=value&nextProperty=value`_
+
 <br/>
 
 ### Product Routes
 
-_To concatenate query parameters, use the format: `?firstProperty=value&followingProperties=value`_<br/>
+- GET - A product by its ID
+  ```sh
+  /api/v1/product/:id
+  ```
+
+- GET - All products
+  ```sh
+  /api/v1/products
+  ```
+
+  - Query parameters:
+    - `?limit=Number` - Limit the number of products to return
+    - `?skip=Number` - Skip the first N products
+    - `?orderBy=String` - Order by a given property (if sort value is not given, defaults to ascending order)
+    - `?sort=String` - Sort by ascending or descending order (if orderBy value is not given, defaults to sorting by ID)
+    - `?search=String` - Search by SKU, name or description
+    - `?priceBot=Number` - Show products with a price greater than or equal to the given value
+    - `?priceTop=Number` - Show products with a price less than or equal to the given value
+    - `?currency=String` - Filter by currency
+
 <br/>
 
-- GET - Search by SKU, name or description:<br/>
-  `/api/v1/products?search=YOUR_SEARCH_HERE`
-
-- GET - Set a price range: (priceBot sets bottom and priceTop sets top. You can use one or both)<br/>
-  `/api/v1/products?priceBot=YOUR_PRICE_HERE&priceTop=YOUR_PRICE_HERE`
-
-- GET - Filter by currency:<br/>
-  `/api/v1/products?currency=YOUR_CURRENCY_HERE`
-
-- POST - Add a product:<br/>
-  `/api/v1/product`
+- POST - Add a product:
+  ```sh
+  /api/v1/product
+  ```
 
   With the following body format:
   ```json
@@ -219,17 +219,24 @@ _To concatenate query parameters, use the format: `?firstProperty=value&followin
 
 ### User Routes
 
-_To concatenate query parameters, use the format: `?firstProperty=value&followingProperties=value`_<br/>
-<br/>
+- GET - A user by their ID
+  ```sh
+  /api/v1/user/:id
+  ```
 
-- GET - Search by username, email, first name or last name:<br/>
-  `/api/v1/users?search=YOUR_SEARCH_HERE`
+- GET - All users
+  ```sh
+  /api/v1/users
+  ```
 
-- GET - See only active or inactive users:<br/>
-  `/api/v1/users?active=ACTIVE_STATUS`
-
-- GET - Filter by role:<br/>
-  `/api/v1/users?role=ROLE`
+  - Query parameters:
+    - `?limit=Number` - Limit the number of users to return
+    - `?skip=Number` - Skip the first N users
+    - `?orderBy=String` - Order by a given property (if sort value is not given, defaults to ascending order)
+    - `?sort=String` - Sort by ascending or descending order (if orderBy value is not given, defaults to sorting by ID)
+    - `?search=String` - Search by username, email, first name or last name
+    - `?active=String` - Show only active or inactive users
+    - `?role=String` - Filter by role
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
