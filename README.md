@@ -6,9 +6,6 @@
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-
-
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
 
@@ -45,7 +42,14 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#routes">Routes</a></li>
+        <li><a href="#product-routes">Product Routes</a></li>
+        <li><a href="#user-routes">User Routes</a></li>
+      </ul>
+    </li>
   </ol>
 </details>
 
@@ -72,8 +76,6 @@ Backend project, developed with Nodejs/Express technologies that exposes a Rest 
 
 #### Functionality 3: Product registration. (30% of the challenge) (Done)
 - [x] Backend for the insertion of a new product, validating that the required fields (SKU, name, images, price, currency) are present but that the optional fields (code, description) are allowed.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -119,15 +121,15 @@ First of all, you need to have installed Git, Node.js and Node Package Manager (
    ```
 3. Set the environment variables in a `.env` file
    ```sh
-    STATUS=development
-    PORT=4000
-    DEV_PORT=3000
-    JWT_SECRET = 5e88ce357912541882d7435ec5520c1547ccba045950782133173dc4017c40e3
-    DB_NAME= INSERT_DATABASE_NAME
-    DB_HOST= INSERT_DATABASE_HOST
-    DB_USER= INSERT_DATABASE_USER
-    DB_PASS= INSERT_DATABASE_PASSWORD
-    DB_AUTH_SOURCE= INSERT_DATABASE_AUTH_SOURCE
+    STATUS = development
+    PORT = 4000
+    DEV_PORT = 3000
+    JWT_SECRET = INSERT_YOUR_SECRET
+    DB_NAME = INSERT_DATABASE_NAME
+    DB_HOST = INSERT_DATABASE_HOST
+    DB_USER = INSERT_DATABASE_USER
+    DB_PASS = INSERT_DATABASE_PASSWORD
+    DB_AUTH_SOURCE = INSERT_DATABASE_AUTH_SOURCE
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -137,84 +139,97 @@ First of all, you need to have installed Git, Node.js and Node Package Manager (
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-To run the project, you need to run the following command in the root folder of the project:
+1. <strong>Run the project:</strong> You need to run the following command in the root folder of the project:
+  ```sh
+  npm run dev
+  ```
+<br/>
 
-```sh
-npm run dev
+_You can use any client to test the API, such as [Postman](https://www.postman.com/downloads/), [Insomnia](https://insomnia.rest/download) or VSCode's [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension (or a [browser](https://www.google.com/chrome/) for GET requests)._
+
+<br/>
+
+2. <strong>Login to get a token:</strong>
+  You can do it by making a <strong>POST request</strong> to the following endpoint:<br/>
+  `/api/v1/auth`<br/>
+  <br/>
+  With the following body format:
+  ```json
+  {
+      "username": "String", //(or email)
+      "email": "String", //(or username)
+      "password": "String"
+  }
+  ```
+
+3. <strong>Add the given token</strong> in the Headers or the query of the request to make requests to the other endpoints.
+  ```sh
+  Headers --> Authorization: Bearer token
+  Query --> accessToken=token
+  ```
+
+
+### Routes
+
+You can make <strong>GET requests</strong> to the following endpoints:<br/>
 ```
-
-You can use any client to test the API, such as [Postman](https://www.postman.com/downloads/), [Insomnia](https://insomnia.rest/download) or VSCode's [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension (or a [browser](https://www.google.com/chrome/) for GET requests).
-
-First you need to login to get a token.<br/>
-You can do it by making a POST request to the following endpoint:<br/>
-<strong>/api/v1/auth</strong><br/>
-<br/>
-With the following body:<br/>
-<strong>
-{<br/>
-    username: string (OR EMAIL),<br/>
-    email: string (OR USERNAME),<br/>
-    password: string<br/>
-}
-</strong><br/>
-<br/>
-You must add the given token in the headers or the query of the request to make requests to the other endpoints.<br/>
-<strong>Headers: Authorization: Bearer token</strong><br/>
-<strong>Query: accessToken=token</strong><br/>
-<br/>
-You can use <strong>GET requests</strong> on the following endpoints:<br/>
-<ul>
-    <li><strong>/api/v1/users</strong>  -  Get all users<br/></li>
-    <li><strong>/api/v1/user/:id</strong>  -  Get one user by its ID<br/></li>
-    <li><strong>/api/v1/products</strong>  -  Get all products<br/></li>
-    <li><strong>/api/v1/product/:id</strong>  -  Get one product by its ID</li>
-</ul>
-<br/>
-You can use <strong>POST requests</strong> on the following endpoint:<br/>
-<ul>
-    <li><strong>/api/v1/product</strong>  -  Create a new product<br/></li>
-</ul>
+/api/v1/users        -  Get all users
+/api/v1/user/:id     -  Get a user by their ID
+/api/v1/products     -  Get all products
+/api/v1/product/:id  -  Get a product by its ID
+```
 <br/>
 
-
-<h3>Products:</h3>
-
-To search for products by SKU, name or description, use the following endpoint:<br/>
-<strong>/api/v1/products?search=YOUR_SEARCH_HERE</strong><br/>
-<br/>
-To set a price range, you can use priceBot (bottom) and priceTop range: (you can use only one, or both)<br/>
-<strong>/api/v1/products?priceBot=YOUR_PRICE_HERE&priceTop=YOUR_PRICE_HERE</strong><br/>
-<br/>
-To filter by currency type, use the currency query:<br/>
-<strong>/api/v1/products?currency=YOUR_CURRENCY_HERE</strong><br/>
-<br/>
-To add a product, use <strong>POST request</strong> on the following endpoint:<br/>
-<strong>/api/v1/product</strong><br/>
-<br/>
-You have to respect the following format:<br/>
-<strong>
-{<br/>
-    SKU: String,<br/>
-    code: Number (OPTIONAL),<br/>
-    name: String,<br/>
-    description: String (OPTIONAL),<br/>
-    pictures: Array<string>,<br/>
-    price: Number,<br/>
-    currency: String<br/>
-}
-</strong><br/>
+You can make <strong>POST requests</strong> to the following endpoint:<br/>
+```
+/api/v1/product  -  Create a new product
+```
 <br/>
 
-<h3>Users:</h3>
+### Product Routes
 
-To search for users by username, email, first name or last name, use the following endpoint:<br/>
-<strong>/api/v1/users?search=YOUR_SEARCH_HERE</strong><br/>
+_To concatenate query parameters, use the format: `?firstProperty=value&followingProperties=value`_<br/>
 <br/>
-To see only active or inactive users, use the active query:<br/>
-<strong>/api/v1/users?active=ACTIVE_STATUS(BOOLEAN)</strong><br/>
+
+- GET - Search by SKU, name or description:<br/>
+  `/api/v1/products?search=YOUR_SEARCH_HERE`
+
+- GET - Set a price range: (priceBot sets bottom and priceTop sets top. You can use one or both)<br/>
+  `/api/v1/products?priceBot=YOUR_PRICE_HERE&priceTop=YOUR_PRICE_HERE`
+
+- GET - Filter by currency:<br/>
+  `/api/v1/products?currency=YOUR_CURRENCY_HERE`
+
+- POST - Add a product:<br/>
+  `/api/v1/product`
+
+  With the following body format:
+  ```json
+  {
+      "SKU": "String",
+      "code": Number, //(optional)
+      "name": "String",
+      "description": "String", //(optional)
+      "pictures": ["String"], //array of URLs
+      "price": Number,
+      "currency": "String"
+  }
+  ```
 <br/>
-To filter by role, use the role query:<br/>
-<strong>/api/v1/users?role=ROLE</strong><br/>
+
+### User Routes
+
+_To concatenate query parameters, use the format: `?firstProperty=value&followingProperties=value`_<br/>
+<br/>
+
+- GET - Search by username, email, first name or last name:<br/>
+  `/api/v1/users?search=YOUR_SEARCH_HERE`
+
+- GET - See only active or inactive users:<br/>
+  `/api/v1/users?active=ACTIVE_STATUS`
+
+- GET - Filter by role:<br/>
+  `/api/v1/users?role=ROLE`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
