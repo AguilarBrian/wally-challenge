@@ -3,26 +3,31 @@ import { ProductModel } from '../models/product.js';
 export { getProducts, getProductById, wrongGetProduct, postProduct, wrongPostProduct };
 
 const getProducts = (req, res) => {
-    const { search, priceBot, priceTop, currency } = req.query;
+    const { search, priceBot, priceTop, currency, limit, skip, orderBy, sort } = req.query;
     try {
-        let query = {};
+        let query = [];
+        let match = {};
 
         if (search) {
-            query = {
-                $or: [
-                    { SKU: { $regex: search, $options: 'i' } },
-                    { name: { $regex: search, $options: 'i' } },
-                    { description: { $regex: search, $options: 'i' } }
-                ]
-            }
+            match.$or = [
+                { SKU: { $regex: search, $options: 'i' } },
+                { name: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } }
+            ]
         }
-        if (priceBot || priceTop) query.price = {};
-        if (priceBot) query.price.$gte = priceBot;
-        if (priceTop) query.price.$lte = priceTop;
-        if (currency) query.currency = currency;
+        if (priceBot || priceTop) match.price = {};
+        if (priceBot) match.price.$gte = parseInt(priceBot);
+        if (priceTop) match.price.$lte = parseInt(priceTop);
+        if (currency) match.currency = currency;
 
-        ProductModel.find(query, (err, data) => {
-            if (err) return res.status(400).json({ message: 'Error getting products' });
+        query.push({ $match: match });
+
+        if (skip) query.push({ $skip: parseInt(skip) });
+        if (limit) query.push({ $limit: parseInt(limit) });
+        if (orderBy || sort) query.push({ $sort: { [orderBy ? orderBy : '_id']: sort == 'desc' ? -1 : 1 } });
+
+        ProductModel.aggregate(query, (err, data) => {
+            if (err) return res.status(400).json({ message: 'Error getting users' });
             return res.status(200).json(data);
         });
 
